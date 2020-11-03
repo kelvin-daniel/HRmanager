@@ -24,10 +24,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = "2345rtsygbjsmlas;'ldqwpaddwhehdd"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG')
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -49,11 +49,11 @@ INSTALLED_APPS = [
     'rest_framework'
 ]
 
-cloudinary.config( 
-  cloud_name = os.environ.get('CLOUDINARY_NAME'), 
-  api_key = os.environ.get('CLOUDINARY_API_KEY'), 
-  api_secret = os.environ.get('CLOUDINARY_API_SECRET'), 
-)
+# cloudinary.config( 
+#   cloud_name = os.environ.get('CLOUDINARY_NAME'), 
+#   api_key = os.environ.get('CLOUDINARY_API_KEY'), 
+#   api_secret = os.environ.get('CLOUDINARY_API_SECRET'), 
+# )
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -95,19 +95,6 @@ WSGI_APPLICATION = 'hrms.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME', 'postgres'),
-        'USER': os.environ.get('DB_USER', 'postgres'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'password'),
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
-        'TEST': {
-            'NAME': 'test_hrm'
-        }
-    },
-}
 
 #DATABASE_URL=postgres://{user}:{password}@{hostname}:{port}/{database-name}
 
