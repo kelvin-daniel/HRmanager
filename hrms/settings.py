@@ -41,9 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'phonenumber_field',
     'hrm.apps.HrmConfig',
-
+    'tinymce',
     'cloudinary',
     'bootstrap4',
     'rest_framework'
