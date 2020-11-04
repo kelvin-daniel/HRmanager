@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'hrm.apps.HrmConfig',
-
+    'tinymce',
     'cloudinary',
     'bootstrap4',
     'rest_framework'
