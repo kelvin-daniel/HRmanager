@@ -30,7 +30,7 @@ def registerPage(request):
 
 			group = Group.objects.get(name='manager')
 			user.groups.add(group)
-			Customer.objects.create(
+			Manager.objects.create(
 				user=user,
 				name=user.username,
 				)
@@ -66,3 +66,52 @@ def logoutUser(request):
 	return redirect('login')
 
 
+def employee_profile_view(request):
+	
+  if request.method == 'POST':
+		
+    user_form = UserForm(request.POST, prefix='UF')
+		profile_form = EmployeeProfileForm(request.POST, prefix='PF')
+		
+    if user_form.is_valid() and profile_form.is_valid():
+			user = user_form.save(commit=False)
+			user.save()
+
+			user.employee_profile.name = profile_form.cleaned_data.get('name')
+			user.employee_profile.phone = profile_form.cleaned_data.get('phone')
+            user.employee_profile.email = profile_form.cleaned_data.get('email')
+
+			user.employee_profile.save()
+			
+	else:
+		user_form = UserForm(prefix='UF')
+		profile_form = EmployeeProfileForm(prefix='PF')
+		
+	return render(request, '',{
+			
+		})
+
+
+def teamlead_profile_view(request):
+	
+  if request.method == 'POST':
+		
+    user_form = UserForm(request.POST, prefix='UF')
+		profile_form = TeamLeadProfileForm(request.POST, prefix='PF')
+		
+    if user_form.is_valid() and profile_form.is_valid():
+			user = user_form.save(commit=False)
+			user.save()
+
+			user.teamlead_profile.team_name = profile_form.cleaned_data.get('team_name')
+			user.teamlead_profile.website = profile_form.cleaned_data.get('website')
+			user.teamlead_profile.save()
+			
+	else:
+		user_form = UserForm(prefix='UF')
+		profile_form = TeamLeadProfileForm(prefix='PF')
+		
+	return render(request, '',{
+			'user_form': user_form,
+			'profile_form': profile_form,
+		})
