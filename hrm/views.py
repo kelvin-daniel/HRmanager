@@ -1,6 +1,6 @@
 from django.shortcuts import render
-#from .models import
-#from .forms import
+from .models import *
+from .forms import *
 from rest_framework.response import Response
 from rest_framework.views import APIView
 #from .serializer import
