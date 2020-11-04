@@ -7,6 +7,6 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model=Profile
 
-class BusinessForm(forms.ModelForm):
+class CompanyForm(forms.ModelForm):
     class Meta:
         model=Business
