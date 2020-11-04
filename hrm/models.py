@@ -4,6 +4,10 @@ from django.contrib.auth.models import User
 from tinymce.models import HTMLField
 import datetime as dt
 from phonenumber_field.modelfields import PhoneNumberField
+from .manager import LeaveManager
+from django.utils.translation import ugettext as _
+from django.utils import timezone
+from datetime import datetime
 
 # Create your models here.
 class Company(models.Model):
