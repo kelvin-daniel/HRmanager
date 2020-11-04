@@ -2,6 +2,8 @@ from django.db import models
 from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
 from tinymce.models import HTMLField
+import datetime as dt
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 class Company(models.Model):
