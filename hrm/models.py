@@ -28,3 +28,13 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.name
+
+class Make_user(models.Model):
+    avatar = CloudinaryField('image', null=True)
+    name =models.CharField(max_length=100)
+    email = models.EmailField()
+    contact = models.IntegerField()
+    address =models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name

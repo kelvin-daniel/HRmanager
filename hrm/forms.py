@@ -9,4 +9,8 @@ class ProfileForm(forms.ModelForm):
 
 class CompanyForm(forms.ModelForm):
     class Meta:
-        model=Business
+        model=Company
+
+class Make_userForm(forms.ModelForm):
+    class Meta:
+        model=Make_user
