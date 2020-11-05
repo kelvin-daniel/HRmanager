@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'hrm.apps.HrmConfig',
+    'authentication',
 
     'cloudinary',
     'bootstrap4',
@@ -54,6 +55,12 @@ INSTALLED_APPS = [
 #   api_key = os.environ.get('CLOUDINARY_API_KEY'), 
 #   api_secret = os.environ.get('CLOUDINARY_API_SECRET'), 
 # )
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
