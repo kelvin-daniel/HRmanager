@@ -21,6 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('hrm.urls')),
     path('logout/', auth_views.LogoutView.as_view(), {"next_page":'/'}),
-    path('accounts/', include('registration.backends.simple.urls')),
+    # path('accounts/', include('django_registration.backends.simple.urls')),
     path('accounts/', include('django.contrib.auth.urls'))
 ]

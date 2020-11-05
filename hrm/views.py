@@ -23,7 +23,7 @@ def make_user(request):
     profile=Profile.objects.get(username=current_user)
     makeusers=Make_users.objects.all()
 
-    return render(request,'makeuserhtml',{"makeusers:makeusers)
+    return render(request,'makeuserhtml',{"makeusers":makeusers})
 
 @login_required(login_url='/accounts/login/')
 def user_profile(request):

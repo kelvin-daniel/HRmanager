@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'tinymce',
     'cloudinary',
     'bootstrap4',
-    'rest_framework'
+    'whitenoise',
+    'rest_framework',
 ]
 
 cloudinary.config( 
@@ -56,6 +57,7 @@ cloudinary.config(
 )
 
 MIDDLEWARE = [
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -63,7 +65,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'hrms.urls'
@@ -71,7 +72,7 @@ ROOT_URLCONF = 'hrms.urls'
 #simplified staticfile serving
 #https://warehouse.python.org/project/whitenoise/
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 TEMPLATES = [
     {
@@ -89,7 +90,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'hrms.wsgi.application'
 
 
 # Database
