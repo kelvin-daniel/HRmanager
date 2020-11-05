@@ -1,4 +1,8 @@
+from django.forms import ModelForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django import forms
+
 from .models import Leave
 # from .models import Comment
 import datetime
@@ -37,3 +41,4 @@ class LeaveCreationForm(forms.ModelsForm):
     #class Meta:
         #model=Make_user
 '''        
+
