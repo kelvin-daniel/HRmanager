@@ -1,8 +1,24 @@
 from rest_framework import serializers
+from .models import *
 from django.contrib.auth import get_user_model as user_model
 User = user_model()
 from .models import SupervisorProfile, Department
 from apps.manager.models import ManagerProfile
+
+class CompanySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        fields = ('logo', 'description', 'name', 'location', 'contact')
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ('avatar', 'username', 'name', 'email', 'contact')
+
+class EmployeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = ('avatar', 'name', 'email', 'contact', 'address')
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -32,3 +48,4 @@ class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
         fields = '__all__'
+

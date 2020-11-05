@@ -175,10 +175,9 @@ class Leave(models.Model):
 class Company(models.Model):
     logo = CloudinaryField('image', null=True)
     description = HTMLField()
-    owner = models.ForeignKey(User,on_delete=models.CASCADE)
     name =models.CharField(max_length=100)
     email = models.EmailField()
-    address =models.CharField(max_length=100)
+    location =models.CharField(max_length=100)
     contact = PhoneNumberField()
 
     def __str__(self):
@@ -187,15 +186,15 @@ class Company(models.Model):
 
 class Profile(models.Model):
     avatar = CloudinaryField('image', null=True)
-    description = HTMLField()
     username = models.ForeignKey(User,on_delete=models.CASCADE)
     name =models.CharField(max_length=100)
     email = models.EmailField()
+    contact = models.IntegerField()
 
     def __str__(self):
         return self.name
 
-class Make_user(models.Model):
+class Employee(models.Model):
     avatar = CloudinaryField('image', null=True)
     name =models.CharField(max_length=100)
     email = models.EmailField()
