@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from tinymce.models import HTMLField
 import datetime as dt
+from django.dispatch import receiver
 from phonenumber_field.modelfields import PhoneNumberField
 from django.utils import timezone
 from datetime import datetime
@@ -15,7 +16,6 @@ from .manager import LeaveManager
 from django.utils.translation import ugettext as _
 from django.utils import timezone
 from datetime import datetime
-#from .models import ManagerProfile
 
 class Hradmin(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
@@ -31,7 +31,7 @@ class Hradmin(models.Model):
 class Team(models.Model):
     name = models.CharField(max_length=64, unique=True)
     description = models.TextField(max_length=1024)
-    logo = models.ImageField()
+    logo = CloudinaryField('image', null=True)
     members = models.ManyToManyField(User, through='members')
     
     def __str__(self):
@@ -51,8 +51,8 @@ class TeamManagerProfile(models.Model):
     last_name = models.CharField(max_length=50, blank=True)
     phone_number = models.IntegerField(blank=True, null= True)
     bio = models.TextField(blank=True)
-    profile_photo = models.ImageField(upload_to = 'profilepics/', blank=True)
-    team_name = models.ForeignKey(max_length=50, blank=True)
+    profile_photo = CloudinaryField('image', null=True)
+    team_name = models.ForeignKey(Team , max_length=50, blank=True, on_delete=models.CASCADE)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -71,12 +71,12 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 
 class MembersProfile(models.Model):
-    team_name = models.ForeignKey(max_length=50, blank=True)
+    team_name = models.ForeignKey(Team ,max_length=50, blank=True, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     #employee = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
 
 
-    objects = TeamManager()
+    # objects = TeamManager()
 
 # Create your models here.
 SICK = 'sick'

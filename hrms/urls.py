@@ -22,7 +22,7 @@ urlpatterns = [
     path('', include('hrm.urls')),
     path('api/v1/', include('apps.authentication.urls')),
     path('logout/', auth_views.LogoutView.as_view(), {"next_page":'/'}),
-    path('accounts/', include('django.contrib.auth.urls'))
+    path('accounts/', include('django.contrib.auth.urls')),
     #---work-on-edit-view------#
     path('bank/edit/<int:id>/',views.employee_bank_account_update,name='accountedit'),
     path('leave/apply/',views.leave_creation,name='createleave'),

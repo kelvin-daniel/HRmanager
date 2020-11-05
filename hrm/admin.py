@@ -4,6 +4,6 @@ from .models import *
 # Register your models here.
 admin.site.register(Company)
 admin.site.register(Profile)
-admin.site.register(Make_user)
+admin.site.register(Employee)
 admin.site.register(Leave)
 
