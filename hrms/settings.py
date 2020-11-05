@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "2345rtsygbjsmlas;'ldqwpaddwhehdd"
+SECRET_KEY = os.config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -41,20 +41,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'phonenumber_field',
     'hrm.apps.HrmConfig',
     'authentication',
-
+    'tinymce',
     'cloudinary',
     'bootstrap4',
     'rest_framework'
 ]
 
-# cloudinary.config( 
-#   cloud_name = os.environ.get('CLOUDINARY_NAME'), 
-#   api_key = os.environ.get('CLOUDINARY_API_KEY'), 
-#   api_secret = os.environ.get('CLOUDINARY_API_SECRET'), 
-# )
+cloudinary.config( 
+  cloud_name = os.environ.get('CLOUDINARY_NAME'), 
+  api_key = os.environ.get('CLOUDINARY_API_KEY'), 
+  api_secret = os.environ.get('CLOUDINARY_API_SECRET'), 
+)
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
