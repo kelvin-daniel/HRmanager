@@ -68,8 +68,6 @@ python3.8 manage.py runserver
 ```
 Open terminal on `localhost:8000`
 
-
-
 ## Technologies used
     - Python 3.8
     - Django 3
@@ -83,4 +81,4 @@ Open terminal on `localhost:8000`
 Contact me for further help/support through my github handle
 
 ### License
-Copyright (c) ** **
+MIT Copyright (c) 2020

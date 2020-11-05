@@ -17,7 +17,6 @@ from .serializer import *
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from rest_framework import status
-from .serializer import TeamManagerSerializer, TeamSerializer
 
 class TeamManagerProfileView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -178,8 +177,6 @@ def leave_creation(request):
 			instance.user = user
 			instance.save()
 
-
-			
 			messages.success(request,'Leave Request Sent,wait for Human Resource Managers response',extra_tags = 'alert alert-success alert-dismissible show')
 			return redirect('createleave')
 
