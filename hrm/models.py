@@ -7,7 +7,10 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.utils import timezone
 from datetime import datetime
 from django.utils.translation import ugettext as _
-
+from .manager import LeaveManager
+from django.utils.translation import ugettext as _
+from django.utils import timezone
+from datetime import datetime
 
 # Create your models here.
 SICK = 'sick'
@@ -24,7 +27,6 @@ LEAVE_TYPE = (
 
 DAYS = 30
 
-
 class Leave(models.Model):
 	user = models.ForeignKey(User,on_delete=models.CASCADE,default=1)
 	startdate = models.DateField(verbose_name=_('Start Date'),help_text='leave start date is on ..',null=True,blank=False)
@@ -36,9 +38,6 @@ class Leave(models.Model):
 	def __str__(self):
 		return ('{0} - {1}'.format(self.leavetype,self.user))
 
-
-
-
 	@property
 	def pretty_leave(self):
 		
@@ -46,8 +45,6 @@ class Leave(models.Model):
 		user = self.user
 		employee = user.employee_set.first().get_full_name
 		return ('{0} - {1}'.format(employee,leave))
-
-
 
 	@property
 	def leave_days(self):
@@ -70,8 +67,7 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
-
-
+      
 class Profile(models.Model):
     avatar = CloudinaryField('image', null=True)
     description = HTMLField()
