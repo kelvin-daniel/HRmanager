@@ -3,11 +3,28 @@ from .models import *
 from .forms import *
 from rest_framework.response import Response
 from rest_framework.views import APIView
-#from .serializer import
+from .serializer import *
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+class CompanyList(APIView):
+    def get(self, request, format=None):
+        all_companies = Company.objects.all()
+        serializers = CompanySerializer(all_companies, many=True)
+        return Response(serializers.data)
+
+class ProfileList(APIView):
+    def get(self, request, format=None):
+        hr_profiles = Profile.objects.all()
+        serializers = ProfileSerializer(hr_profiles, many=True)
+        return Response(serializers.data)
+
+class EmployeeList(APIView):
+    def get(self, request, format=None):
+        all_employees = Employee.objects.all()
+        serializers = EmployeeSerializer(all_employees, many=True)
+        return Response(serializers.data)
 
 @login_required(login_url='/accounts/login/')
 def companies(request):
@@ -18,12 +35,12 @@ def companies(request):
     return render(request,'companies.html',{"companies":companies})
 
 @login_required(login_url='/accounts/login/')
-def make_user(request):
+def employee(request):
     current_user=request.user
     profile=Profile.objects.get(username=current_user)
-    makeusers=Make_users.objects.all()
+    employees=Employee.objects.all()
 
-    return render(request,'makeuserhtml',{"makeusers":makeusers})
+    return render(request,'employee.html',{"employees":employees})
 
 @login_required(login_url='/accounts/login/')
 def user_profile(request):

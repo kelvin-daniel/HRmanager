@@ -11,7 +11,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ('avatar', 'username', 'name', 'email', 'contact')
 
-class ProfileSerializer(serializers.ModelSerializer):
+class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Profile
+        model = Employee
         fields = ('avatar', 'name', 'email', 'contact', 'address')
