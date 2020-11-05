@@ -1,5 +1,5 @@
 from django import forms
-from .models import Leave
+from .models import *
 import datetime
 
 class LeaveCreationForm(forms.ModelForm):
@@ -22,3 +22,17 @@ class LeaveCreationForm(forms.ModelForm):
             raise forms.ValidationError("Selected dates are wrong")
 
         return enddate
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model=Profile
+
+class CompanyForm(forms.ModelForm):
+    class Meta:
+        model=Company
+
+class Make_userForm(forms.ModelForm):
+    class Meta:
+        model=Make_user
+
