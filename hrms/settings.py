@@ -103,6 +103,7 @@ TEMPLATES = [
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 
+
 #DATABASE_URL=postgres://{user}:{password}@{hostname}:{port}/{database-name}
 
 #Email configurations remember to import os
@@ -156,3 +157,6 @@ STATICFILES_DIRS = [
 ]
 VENV_PATH = os.path.dirname(BASE_DIR)
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
+
+
+

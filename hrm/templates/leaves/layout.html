@@ -1,0 +1,102 @@
+{% load bootstrap4 %} {% load static %} {% load cloudinary %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="assets/img/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" /> {% if title %}
+    <title> HRM {{title}}</title>
+    {% else %}
+    <title> HRM </title>
+    {% endif %} {% block styles %} {% bootstrap_css %}
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Anton|Russo+One" rel="stylesheet">
+
+    <!-- Bootstrap core CSS     -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+
+    <!-- Animation library for notifications   -->
+    <link href="{% static 'css/animate.min.css' %}" rel="stylesheet" />
+
+    <!--  Light Bootstrap Table core CSS    -->
+    <link href="{% static 'leaves.css' %}" rel="stylesheet" />
+
+
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="{% static 'css/demo.css' %}" rel="stylesheet" />
+
+
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="{% static 'css/pe-icon-7-stroke.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> {% endblock styles %}
+
+</head>
+
+<body>
+
+    {% include 'navbar.html' %} {% block content %} {%endblock%} {% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    {{block.super}}
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/clipboard.js/1.5.3/clipboard.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+    <!--   Core JS Files   -->
+    <script src="{% static 'js/jquery.3.2.1.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}" type="text/javascript"></script>
+
+    <!--  Charts Plugin -->
+    <script src="{% static 'js/chartist.min.js' %}"></script>
+
+    <!--  Notifications Plugin    -->
+    <script src="{% static 'js/bootstrap-notify.js' %}"></script>
+
+    <!--  Google Maps Plugin    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+
+
+    <script type="text/javascript">
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('.prev-holder .prev-avatar').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+        $(document).ready(function() {
+
+            $('.refresh-page').click(function() {
+                /*Script refreshes the page*/
+                console.log('refresh page clicked !!!');
+                location.reload(true);
+
+            });
+
+
+            $("#id_birthday,#id_dateissued,#id_startdate,#id_enddate").datepicker({
+                dateFormat: 'yy-mm-dd'
+            });
+
+
+        });
+    </script>
+
+    {% endblock %}
+</body>
+
+</html>
