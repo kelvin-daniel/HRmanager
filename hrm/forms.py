@@ -27,12 +27,15 @@ class LeaveCreationForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model=Profile
+        fields = '__all__'
 
 class CompanyForm(forms.ModelForm):
     class Meta:
         model=Company
+        fields = '__all__'
 
 class Make_userForm(forms.ModelForm):
     class Meta:
         model=Make_user
+        fields = '__all__'
 
