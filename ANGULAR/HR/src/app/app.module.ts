@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { AppRoutingModule } from './app-routing.module';
@@ -36,7 +36,7 @@ import { ApplyLeaveComponent } from './user/apply-leave/apply-leave.component';
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    HttpClient,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
   ],
