@@ -12,12 +12,14 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 import datetime
 from django.contrib import messages
-from .serializer import *
+from .serializers import *
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+
+
 
 class TeamManagerProfileView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -167,34 +169,35 @@ class EmployeeList(APIView):
         serializers = EmployeeSerializer(all_employees, many=True)
         return Response(serializers.data)
 
-@api_view(['GET', 'POST'])
-    def leave_creation(request, format=None):
-        """
-        create new leave requests
-        """
-        if not request.user.is_authenticated:
-            return redirect('accounts:login')
+@api_view(['POST'])
+def leave_creation(request, format=None):
+    """
+    create new leave requests
+    """
+    if not request.user.is_authenticated:
+        return redirect('accounts:login')
 
-        if request.method == 'POST':
-            serializer = LeaveSerializer(data=request.data)
-            form = LeaveCreationForm(data = request.POST)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-         
+    if request.method == 'POST':
+        serializer = LeaveSerializer(data=request.data)
+        form = LeaveCreationForm(data = request.POST)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+ 
+
 @api_view(['GET'])
 def leaves_list(request, format=None):
     """
     List of leaves 
     """
-	if not (request.user.is_staff and request.user.is_superuser):
-		return redirect('/')
+	  if not (request.user.is_staff and request.user.is_superuser):
+		  return redirect('/')
 
     if request.method == 'GET':
-	    leaves = Leave.objects.all()
+	      leaves = Leave.objects.all()
         serializer = LeaveSerializer(snippets, many=true)
-	    return Response(serializer.data)
+	      return Response(serializer.data)
 
 
 
@@ -223,8 +226,6 @@ def leaves_view(request, pk, format=None):
     elif request.method == 'DELETE':
         leave.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
 
 @login_required(login_url='/accounts/login/')
 def companies(request):
