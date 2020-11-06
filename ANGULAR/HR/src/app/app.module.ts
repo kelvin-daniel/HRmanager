@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +14,9 @@ import { HrmanageradminComponent } from './hrmanageradmin/hrmanageradmin.compone
 import { CompanyadminComponent } from './companyadmin/companyadmin.component';
 import { TeammanagerComponent } from './teammanager/teammanager.component';
 import { UserComponent } from './user/user.component';
+import { AddEditUserComponent } from './hrmanageradmin/add-edit-user/add-edit-user.component';
+import { AddEditTeamComponent } from './companyadmin/add-edit-team/add-edit-team.component';
+import { ApplyLeaveComponent } from './user/apply-leave/apply-leave.component';
 
 @NgModule({
   declarations: [
@@ -22,12 +27,18 @@ import { UserComponent } from './user/user.component';
     HrmanageradminComponent,
     CompanyadminComponent,
     TeammanagerComponent,
-    UserComponent
+    UserComponent,
+    AddEditUserComponent,
+    AddEditTeamComponent,
+    ApplyLeaveComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
+    HttpClient,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [HrmanagerService],
   bootstrap: [AppComponent]
