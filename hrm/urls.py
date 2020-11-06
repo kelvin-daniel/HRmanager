@@ -14,7 +14,6 @@ urlpatterns=[
     path('supervisor/<int:pk>/', views.TeamManagerProfileView.as_view()),
     path('members/', views.MembersView.as_view()),
     path('team/<int:pk>/', views.TeamView.as_view()),
-
 ]
 
 if settings.DEBUG:
