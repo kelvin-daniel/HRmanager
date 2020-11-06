@@ -12,8 +12,6 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.utils import timezone
 from datetime import datetime
 from django.utils.translation import ugettext as _
-from .manager import LeaveManager
-from django.utils.translation import ugettext as _
 from django.utils import timezone
 from datetime import datetime
 

@@ -48,3 +48,8 @@ class TeamSerializer(serializers.ModelSerializer):
         model = Team
         fields = '__all__'
 
+class LeaveSerializer(serializer.ModelSerializer):
+    class Meta:
+        model = Leave
+        fields = '__all__'
+

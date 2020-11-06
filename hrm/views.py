@@ -6,7 +6,6 @@ from .models import *
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
-# from .serializer import
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 # from django.core.mail import send_mail
@@ -17,6 +16,8 @@ from .serializers import *
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 
 
@@ -168,61 +169,63 @@ class EmployeeList(APIView):
         serializers = EmployeeSerializer(all_employees, many=True)
         return Response(serializers.data)
 
-class Leave_creation(APIView):
-    def leave_creation(request):
-        if not request.user.is_authenticated:
-            return redirect('accounts:login')
-        if request.method == 'POST':
-            form = LeaveCreationForm(data = request.POST)
-            if form.is_valid():
-                instance = form.save(commit = False)
-                user = request.user
-                instance.user = user
-                instance.save()
+@api_view(['POST'])
+def leave_creation(request, format=None):
+    """
+    create new leave requests
+    """
+    if not request.user.is_authenticated:
+        return redirect('accounts:login')
 
-                messages.success(request,'Leave Request Sent,wait for Human Resource Managers response',extra_tags = 'alert alert-success alert-dismissible show')
-                return redirect('createleave')
+    if request.method == 'POST':
+        serializer = LeaveSerializer(data=request.data)
+        form = LeaveCreationForm(data = request.POST)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+ 
 
-            messages.error(request,'failed to Request a Leave,please check entry dates',extra_tags = 'alert alert-warning alert-dismissible show')
-            return redirect('createleave')
+@api_view(['GET'])
+def leaves_list(request, format=None):
+    """
+    List of leaves 
+    """
+	  if not (request.user.is_staff and request.user.is_superuser):
+		  return redirect('/')
 
-
-        dataset = dict()
-        form = LeaveCreationForm()
-        dataset['form'] = form
-        dataset['title'] = 'Apply for Leave'
-        return render(request,'leaves/create_leave.html',dataset)
-
-# def leave_creation(request):
-# 	current_user = request.user
-	
-# 	if request.method == 'POST':
-# 		form = LeaveCreationForm(request.POST, request.FILES)
-# 		if form.is_valid():
-# 			instance = form.save(commit = False)
-# 			instance.user = current_user
-# 			instance.save()
-# 		return redirect('createleave')
-# 	else:
-#         form = LeaveCreationForm()
-# 		return render(request,'leaves/create_leave.html', {"form":form})
+    if request.method == 'GET':
+	      leaves = Leave.objects.all()
+        serializer = LeaveSerializer(snippets, many=true)
+	      return Response(serializer.data)
 
 
 
-def leaves_list(request):
-	if not (request.user.is_staff and request.user.is_superuser):
-		return redirect('/')
-	leaves = Leave.objects.all()
-	return render(request,'leaves/leaves_recent.html',{'leave_list':leaves,'title':'leaves list'})
-
-def leaves_view(request,id):
+@api_view (['GET','PUT','DELETE'])
+def leaves_view(request, pk, format=None):
+    """
+    Retrieve update or delete a leave request
+    """
 	current_user = request.user
-    #connect to the registered employees
-	leave = get_object_or_404(Leave, id = id)
-	employee = Employee.objects.filter(user = leave.user)[0]
-	print(employee)
-	return render(request,'leaves/leave_detail_view.html',{'leave':leave,'employee':employee,'title':'{0}-{1} leave'.format(leave.user.username,leave.status)})
+    try:
+        leave = Leave.objects.get(pk=pk)
+    except Leave.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
+    if request.method == 'GET':
+        serializer = LeaveSerializer(leave)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = LeaveSerializer(leave, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        leave.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 @login_required(login_url='/accounts/login/')
 def companies(request):
