@@ -107,6 +107,7 @@ TEMPLATES = [
 #DATABASE_URL=postgres://{user}:{password}@{hostname}:{port}/{database-name}
 
 #Email configurations remember to import os
+EMAIL_BACKEND =os.environ.get('EMAIL_BACKEND') 
 EMAIL_USE_TLS=os.environ.get('EMAIL_USE_TLS')
 EMAIL_HOST=os.environ.get('EMAIL_HOST')
 EMAIL_PORT=os.environ.get('EMAIL_PORT','587')
