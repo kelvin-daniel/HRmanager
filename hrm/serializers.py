@@ -2,7 +2,6 @@ from rest_framework import serializers
 from .models import *
 from django.contrib.auth import get_user_model as user_model
 User = user_model()
-from .models import SupervisorProfile, Department
 from apps.manager.models import ManagerProfile
 
 class CompanySerializer(serializers.ModelSerializer):

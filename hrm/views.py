@@ -13,10 +13,12 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 import datetime
 from django.contrib import messages
-from .serializer import *
+from .serializers import *
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from rest_framework import status
+
+
 
 class TeamManagerProfileView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -166,29 +168,30 @@ class EmployeeList(APIView):
         serializers = EmployeeSerializer(all_employees, many=True)
         return Response(serializers.data)
 
-def leave_creation(request):
-	if not request.user.is_authenticated:
-		return redirect('accounts:login')
-	if request.method == 'POST':
-		form = LeaveCreationForm(data = request.POST)
-		if form.is_valid():
-			instance = form.save(commit = False)
-			user = request.user
-			instance.user = user
-			instance.save()
+class Leave_creation(APIView):
+    def leave_creation(request):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        if request.method == 'POST':
+            form = LeaveCreationForm(data = request.POST)
+            if form.is_valid():
+                instance = form.save(commit = False)
+                user = request.user
+                instance.user = user
+                instance.save()
 
-			messages.success(request,'Leave Request Sent,wait for Human Resource Managers response',extra_tags = 'alert alert-success alert-dismissible show')
-			return redirect('createleave')
+                messages.success(request,'Leave Request Sent,wait for Human Resource Managers response',extra_tags = 'alert alert-success alert-dismissible show')
+                return redirect('createleave')
 
-		messages.error(request,'failed to Request a Leave,please check entry dates',extra_tags = 'alert alert-warning alert-dismissible show')
-		return redirect('createleave')
+            messages.error(request,'failed to Request a Leave,please check entry dates',extra_tags = 'alert alert-warning alert-dismissible show')
+            return redirect('createleave')
 
 
-	dataset = dict()
-	form = LeaveCreationForm()
-	dataset['form'] = form
-	dataset['title'] = 'Apply for Leave'
-	return render(request,'leaves/create_leave.html',dataset)
+        dataset = dict()
+        form = LeaveCreationForm()
+        dataset['form'] = form
+        dataset['title'] = 'Apply for Leave'
+        return render(request,'leaves/create_leave.html',dataset)
 
 # def leave_creation(request):
 # 	current_user = request.user
@@ -212,12 +215,9 @@ def leaves_list(request):
 	leaves = Leave.objects.all()
 	return render(request,'leaves/leaves_recent.html',{'leave_list':leaves,'title':'leaves list'})
 
-
-
-
 def leaves_view(request,id):
 	current_user = request.user
-#connect to the registered employees
+    #connect to the registered employees
 	leave = get_object_or_404(Leave, id = id)
 	employee = Employee.objects.filter(user = leave.user)[0]
 	print(employee)
